@@ -2,8 +2,13 @@
 
 ## 💭 서비스 소개
 Read A Perfume은 향수에 대한 리뷰를 남길 수 있는 플랫폼으로, 사용자의 리뷰를 기반으로 향수가 어떤지 한눈에 확인하고 더 나은 향수 선택을 할 수 있도록 하면 어떨까 라는 생각에서 시작되었습니다. 🍾
-
+<br>
+<br>
 다양한 향수를 내 취향에 맞는 카테고리 별로 살펴보고, 다양한 사용자가 작성한 향수에 대한 리뷰로 합리적인 향수를 구매해보아요!
+## 💭 서비스 기능
+[서비스 기능](https://github.com/Big-Cir97/read-a-perfume/blob/develop/function-usecase.md)
+<br>
+<br>
 
 ## ⚒️ 사용 툴
 - Java 17
@@ -55,3 +60,7 @@ docker-compose up -d
 - 반드시 대문자 V로 시작해야 합니다.
 - 반드시 `__` 두개의 언더바로 구분해야 합니다.
 - 버전이 중복되지 않도록 merge 시 주의해주세요. 
+
+## 💀 ISSUE
+[이슈 링크](https://github.com/Big-Cir97/read-a-perfume/blob/develop/Issues.md)
+<br>
