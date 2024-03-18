@@ -5,12 +5,12 @@ Read A Perfume은 향수에 대한 리뷰를 남길 수 있는 플랫폼으로, 
 다양한 향수를 내 취향에 맞는 카테고리 별로 살펴보고, 다양한 사용자가 작성한 향수에 대한 리뷰로 합리적인 향수를 구매해보아요!
 <br>
 <div text-align: center>
-<img src="https://github.com/Big-Cir97/read-a-perfume/blob/develop/images/main-1.png"  width="470" height="300">
-<img src="https://github.com/Big-Cir97/read-a-perfume/blob/develop/images/review-2.png"  width="470" height="300">
-<img src="https://github.com/Big-Cir97/read-a-perfume/blob/develop/images/reivew-3.png"  width="470" height="300">
-<img src="https://github.com/Big-Cir97/read-a-perfume/blob/develop/images/review-4.png"  width="470" height="300">
-<img src="https://github.com/Big-Cir97/read-a-perfume/blob/develop/images/product-5.png"  width="470" height="300">
-<img src="https://github.com/Big-Cir97/read-a-perfume/blob/develop/images/brand-6.png"  width="470" height="300">
+<img src="https://github.com/Big-Cir97/read-a-perfume/blob/develop/images/main-1.png"  width="400" height="300">
+<img src="https://github.com/Big-Cir97/read-a-perfume/blob/develop/images/review-2.png"  width="400" height="300">
+<img src="https://github.com/Big-Cir97/read-a-perfume/blob/develop/images/reivew-3.png"  width="400" height="300">
+<img src="https://github.com/Big-Cir97/read-a-perfume/blob/develop/images/review-4.png"  width="400" height="300">
+<img src="https://github.com/Big-Cir97/read-a-perfume/blob/develop/images/product-5.png"  width="400" height="300">
+<img src="https://github.com/Big-Cir97/read-a-perfume/blob/develop/images/brand-6.png"  width="400" height="300">
   </div>
 <br>
 
