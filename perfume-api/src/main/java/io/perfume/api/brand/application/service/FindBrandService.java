@@ -51,7 +51,7 @@ public class FindBrandService implements FindBrandUseCase {
   @Override
   @CircuitBreaker(name = "CB-redis", fallbackMethod = "fallback")
   @Cacheable(cacheNames = CacheNames.BRAND, key = "'brand_list'", cacheManager = "redisCacheManager")
-  public GetBrandResult findAll() {
+  public GetBrandResult getBrandsResult() {
     List<BrandResult> result = brandQueryRepository.findAll().stream()
             .map(BrandResult::of)
             .toList();
@@ -75,24 +75,5 @@ public class FindBrandService implements FindBrandUseCase {
             .map(BrandResult::of)
             .toList();
     return GetBrandResult.of(result);
-  }
-
-  @Override
-  public GetBrandResult findAllDb() {
-    System.out.println(brandQueryRepository);
-    List<Brand> brands = brandQueryRepository.findAll();
-    List<BrandResult> result = brands.stream()
-            .map(
-                    brand -> {
-//              File file =
-//                  findFileUseCase
-//                      .findFileById(brand.getThumbnailId()).
-                      //.orElseThrow(() -> new FileNotFoundException(brand.getThumbnailId()));
-//              return BrandResult.of(brand, file);
-                      return BrandResult.of(brand);
-                    })
-            .toList();
-    return GetBrandResult.of(result);
-    // return new GetBrandResponseDto(result);
   }
 }

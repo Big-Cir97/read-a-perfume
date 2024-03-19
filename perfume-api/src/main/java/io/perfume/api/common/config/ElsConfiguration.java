@@ -35,20 +35,6 @@ public class ElsConfiguration {
     final CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
     credentialsProvider.setCredentials(AuthScope.ANY, new UsernamePasswordCredentials("", ""));
 
-    //        RestClient restClient = RestClient.builder(new HttpHost("localhost", 9200))
-    //                .setHttpClientConfigCallback(httpClientBuilder -> {
-    //                    httpClientBuilder.disableAuthCaching();
-    //                    httpClientBuilder.setDefaultHeaders(List.of(
-    //                            new BasicHeader(
-    //                                    HttpHeaders.CONTENT_TYPE, ContentType.APPLICATION_JSON)));
-    //                    httpClientBuilder.addInterceptorLast((HttpResponseInterceptor)
-    //                            (response, context) ->
-    //                                    response.addHeader("X-Elastic-Product", "Elasticsearch"));
-    //                    return
-    // httpClientBuilder.setDefaultCredentialsProvider(credentialsProvider);
-    //                })
-    //                .build();
-
     RestClient restClient =
         RestClient.builder(new HttpHost("localhost", 9200))
             .setHttpClientConfigCallback(
@@ -77,7 +63,6 @@ public class ElsConfiguration {
     ElasticsearchTemplate elasticsearchTemplate =
         new ElasticsearchTemplate(elasticsearchClient(), elasticsearchConverter);
     elasticsearchTemplate.setRefreshPolicy(RefreshPolicy.WAIT_UNTIL);
-    //        elasticsearchTemplate.setRefreshPolicy(refreshPolicy());
     return elasticsearchTemplate;
   }
 }

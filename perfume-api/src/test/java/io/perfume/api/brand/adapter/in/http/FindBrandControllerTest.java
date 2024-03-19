@@ -127,7 +127,7 @@ class FindBrandControllerTest {
         new BrandResult(
             1L, "샤넬", "브랜드 스토리", "https://www.chanel.com/kr/fragrance/", "testUrl.com"));
     list.add(new BrandResult(2L, "조말론", "브랜드 스토리", "https://www.jomalone.co.kr/", "testUrl.com"));
-    given(findBrandUseCase.findAll()).willReturn(list);
+    given(findBrandUseCase.getBrandsResult()).willReturn(list);
 
     // when & then
     mockMvc

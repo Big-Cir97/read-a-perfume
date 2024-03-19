@@ -17,13 +17,6 @@ public class BatchConfig {
   private final JobRepository jobRepository;
   private final BrandBatchItem brandBatchItem;
 
-//  @Bean
-//  public JobRegistryBeanPostProcessor jobRegistryBeanPostProcessor(JobRegistry jobRegistry) {
-//    JobRegistryBeanPostProcessor jobRegistryBeanPostProcessor = new JobRegistryBeanPostProcessor();
-//    jobRegistryBeanPostProcessor.setJobRegistry(jobRegistry);
-//    return jobRegistryBeanPostProcessor;
-//  }
-
   @Bean
   public Job brandFileReadAndWriteJob(PlatformTransactionManager transactionManager) {
     return new JobBuilder("brand-csv-data", jobRepository)

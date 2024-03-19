@@ -9,13 +9,13 @@ spring:
   datasource:
     driver-class-name: 'com.mysql.cj.jdbc.Driver'
     url: 'jdbc:mysql://localhost:3307/test'
-    username: 'root'
-    password: '9409'
+    username: ''
+    password: ''
     hikari:
       maximum-pool-size: 24
       max-lifetime: 1800000
-      minimum-idle: 2           # 최소 유효 커넥션 : 풀에서 유지할 최소 유효 커넥션, 기본값은 maximun 과 동일
-      idle-timeout: 30000       # 최대 유효 시간 : 사용되지 않고 풀에 머무는 시간, 이 시간동안 풀에 머무른 커넥션은 종료하고 제거
+      minimum-idle: 2
+      idle-timeout: 30000
       connection-timeout: 15000
       leak-detection-threshold: 60000
       pool-name: 'perfume-db-pool'
@@ -102,23 +102,18 @@ logging:
       hibernate:
         SQL: debug
       springframework:
-        # 트랜잭션 로그 설정
-        #transaction:
-        #  interceptor: trace
         data:
           elasticsearch:
             client:
               WIRE: trace
 
-
-# 서킷 브레이커
 resilience4j:
   circuitbreaker:
     configs:
       default:
         slidingWindowType: COUNT_BASED
         slidingWindowSize: 10
-        failureRateThreshold: 50  # 실패율 임계값을 백분율로 구성, 이 값을 넘어가면 회로 차단
+        failureRateThreshold: 50
         permittedNumberOfCallsInHalfOpenState: 5
         registerHealthIndicator: true
 

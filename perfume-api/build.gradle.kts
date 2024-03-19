@@ -48,9 +48,9 @@ dependencies {
 
     // ES 의존성
     implementation("org.springframework.boot:spring-boot-starter-data-elasticsearch")
-//    implementation("org.elasticsearch.client:elasticsearch-rest-high-level-client:7.17.9")
-//    implementation("org.elasticsearch.client:elasticsearch-rest-client:8.6.2")
-//    implementation("org.elasticsearch:elasticsearch:8.6.2")
+    implementation("org.elasticsearch.client:elasticsearch-rest-high-level-client:7.17.9")
+    implementation("org.elasticsearch.client:elasticsearch-rest-client:8.6.2")
+    implementation("org.elasticsearch:elasticsearch:8.6.2")
 
     // 모니터링을 위한 의존성 (프로메테우스, actuator)
     implementation ("org.springframework.boot:spring-boot-starter-actuator")
@@ -58,27 +58,9 @@ dependencies {
 
     // circuit breaker
     implementation ("org.springframework.cloud:spring-cloud-starter-circuitbreaker-resilience4j:3.1.0")
-
-
-    // implementation ("com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.9.0")
-
-//    implementation ("io.github.resilience4j:resilience4j-all")
-
-    // circuit breaker (2)-
-//    implementation ("io.github.resilience4j:resilience4j-spring-boot3")
-//    implementation ("org.springframework.boot:spring-boot-starter-actuator")
-//    implementation ("org.springframework.boot:spring-boot-starter-aop")
-
-    // circuit breaker (2)- webflux 사용하는 경우 필요
-    // implementation 'io.github.resilience4j:resilience4j-reactor'
 }
 
 
-// task.jar 비활성화
-// Gradle은 프로젝트 빌드 도구로, Task를 사용하여 빌드 과정을 정의하고 실행한다.
-// task.jar는 jar 파일을 생성하는 task이다. 기본적으로 gradle은 프로젝트 소스 코드를 컴파일해서 jar로 패키징한다.
-// 여기서 false는 비활성화 하는것이고, jar 파일을 생성하는 과정에서 실행하지 않는 것이다.
-// 즉 gradle 빌드 시 jar 파일을 생성하지 않는다.
 tasks.jar {
     enabled = false
 }

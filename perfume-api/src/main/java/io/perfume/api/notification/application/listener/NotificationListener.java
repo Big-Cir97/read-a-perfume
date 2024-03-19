@@ -18,18 +18,13 @@ public class NotificationListener {
     this.notificationFacadeService = notificationFacadeService;
   }
 
-  // @EventListener
-  // @Transactional(propagation = Propagation.REQUIRES_NEW)
-  // @TransactionalEventListener(phase = TransactionPhase.BEFORE_COMMIT)
-  //  @TransactionalEventListener()
-  //  @Async
-  @Transactional(propagation = Propagation.REQUIRES_NEW)
   @TransactionalEventListener()
+  @Async
   public void reviewCommentNotificationHandler(ReviewCommentEvent event) {
     notificationFacadeService.reviewCommentNotifyOnEvent(event);
   }
 
-  @TransactionalEventListener
+  @TransactionalEventListener()
   @Async
   public void reviewLikeNotificationHandler(ReviewLikeEvent event) {
     notificationFacadeService.reviewLikeNotifyOnEvent(event);

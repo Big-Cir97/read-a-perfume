@@ -27,16 +27,14 @@ public class CacheConfiguration {
     @Bean
     public CacheManager redisCacheManager(
             @Qualifier("redisCacheConnectionFactory") RedisConnectionFactory cf) {
-        /* Serializer 설정 */
+
         RedisCacheConfiguration redisCacheConfiguration = RedisCacheConfiguration.defaultCacheConfig()
-                .disableCachingNullValues() // null value 캐싱하지 않음
+                .disableCachingNullValues()
                 .serializeKeysWith(RedisSerializationContext.SerializationPair
                         .fromSerializer(new StringRedisSerializer()))
                 .serializeValuesWith(RedisSerializationContext.SerializationPair
                                 .fromSerializer(new GenericJackson2JsonRedisSerializer()));
-                // .entryTtl(Duration.ofMinutes(30L)); // 캐시 유효기간
 
-        /* Cache TTL 설정 */
         Map<String, RedisCacheConfiguration> redisCacheConfigurationMap = new ConcurrentHashMap<>();
         redisCacheConfigurationMap.put(CacheNames.BRAND, redisCacheConfiguration.entryTtl(Duration.ofMinutes(30L)));
 

@@ -9,7 +9,7 @@ public interface FindBrandUseCase {
 
   BrandForPerfumeResult findBrandForPerfume(Long id);
 
-  GetBrandResult findAll();
+  GetBrandResult getBrandsResult();
 
   GetBrandResult findAllDb();
 

@@ -55,7 +55,7 @@ class FindBrandServiceTest {
     given(findFileUseCase.findFileById(anyLong())).willReturn(Optional.ofNullable(file));
 
     // when
-    List<BrandResult> list = findBrandService.findAll();
+    List<BrandResult> list = findBrandService.getBrandsResult();
 
     // then
     assertEquals(2, list.size());

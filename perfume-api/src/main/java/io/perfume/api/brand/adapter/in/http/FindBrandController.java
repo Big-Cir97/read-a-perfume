@@ -26,23 +26,8 @@ public class FindBrandController {
   }
 
   @GetMapping()
-  public ResponseEntity<?> getAllDb() {
-    GetBrandResult result = findBrandUseCase.findAllDb();
-    return ResponseEntity.ok(GetBrandResponseDto.of(result));
-  }
-
-  @GetMapping("cache")
   public ResponseEntity<?> getAll() {
-    GetBrandResult result = findBrandUseCase.findAll();
+    GetBrandResult result = findBrandUseCase.getBrandsResult();
     return ResponseEntity.ok(GetBrandResponseDto.of(result));
   }
-
-//  @GetMapping
-//  public ResponseEntity<?> getAll() {
-//    if (Objects.equals(redisConnectionFactory.getConnection().ping(), "PONG")) {
-//      return ResponseEntity.ok(findBrandUseCase.findAllCache());
-//    }
-//
-//    return ResponseEntity.ok(findBrandUseCase.findAll());
-//  }
 }
