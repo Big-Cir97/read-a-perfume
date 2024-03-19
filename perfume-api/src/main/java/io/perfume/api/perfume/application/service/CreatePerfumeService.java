@@ -3,6 +3,7 @@ package io.perfume.api.perfume.application.service;
 import io.perfume.api.perfume.adapter.out.persistence.perfume.PerfumePersistenceAdapter;
 import io.perfume.api.perfume.application.port.in.CreatePerfumeUseCase;
 import io.perfume.api.perfume.application.port.in.dto.CreatePerfumeCommand;
+import io.perfume.api.perfume.application.port.out.PerfumeSearchRepository;
 import io.perfume.api.perfume.domain.NotePyramidIds;
 import io.perfume.api.perfume.domain.Perfume;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +14,8 @@ import org.springframework.stereotype.Service;
 public class CreatePerfumeService implements CreatePerfumeUseCase {
 
   private final PerfumePersistenceAdapter perfumePersistenceAdapter;
+
+  private final PerfumeSearchRepository perfumeSearchRepository;
 
   @Override
   public void createPerfume(CreatePerfumeCommand createPerfumeCommand) {
@@ -31,10 +34,9 @@ public class CreatePerfumeService implements CreatePerfumeUseCase {
             .brandId(createPerfumeCommand.brandId())
             .categoryId(createPerfumeCommand.categoryId())
             .thumbnailId(createPerfumeCommand.thumbnailId())
-            .imageIds(createPerfumeCommand.imageIds())
             .notePyramidIds(notePyramidIds)
             .build();
-
-    perfumePersistenceAdapter.save(perfume);
+    Perfume result = perfumePersistenceAdapter.save(perfume);
+    perfumeSearchRepository.save(result);
   }
 }

@@ -11,7 +11,7 @@ import org.springframework.data.redis.core.RedisHash;
 
 @Getter
 @ToString
-@RedisHash(timeToLive = 1209600) // TODO: properties로 빼기
+@RedisHash(value = "refresh", timeToLive = 1209600) // TODO: properties로 빼기
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class RedisRefreshToken {
   @Id private UUID tokenId;

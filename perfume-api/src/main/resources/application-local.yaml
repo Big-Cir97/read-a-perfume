@@ -2,16 +2,20 @@ spring:
   config:
     activate:
       on-profile: 'default'
+  cache:
+    type: redis
+    redis:
+      cache-null-values: true
   datasource:
     driver-class-name: 'com.mysql.cj.jdbc.Driver'
     url: 'jdbc:mysql://localhost:3307/test'
-    username: 'test'
-    password: 'test'
+    username: 'root'
+    password: '9409'
     hikari:
-      maximum-pool-size: 5
+      maximum-pool-size: 24
       max-lifetime: 1800000
-      minimum-idle: 2
-      idle-timeout: 30000
+      minimum-idle: 2           # 최소 유효 커넥션 : 풀에서 유지할 최소 유효 커넥션, 기본값은 maximun 과 동일
+      idle-timeout: 30000       # 최대 유효 시간 : 사용되지 않고 풀에 머무는 시간, 이 시간동안 풀에 머무른 커넥션은 종료하고 제거
       connection-timeout: 15000
       leak-detection-threshold: 60000
       pool-name: 'perfume-db-pool'
@@ -22,11 +26,26 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
-  redis:
-    host: localhost
-    port: 6379
-    password: very-strong-local-redis-password!@#$!%!@#
+  batch:
+    jdbc:
+      initialize-schema: always
+      isolation-level-for-create: default
+    job:
+      enabled: false
   data:
+    redis:
+      primary:
+        host: localhost
+        port: 6380
+        password: 1234
+      cache:
+        host: localhost
+        port: 6379
+        password: 1234
+
+    elasticsearch:
+      repositories:
+        enabled: true
     web:
       pageable:
         one-indexed-parameters: true
@@ -76,3 +95,31 @@ aws:
     private-key: 'test'
     bucket: 'read-a-perfume'
     cloudFrontPath: 'test'
+
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: debug
+      springframework:
+        # 트랜잭션 로그 설정
+        #transaction:
+        #  interceptor: trace
+        data:
+          elasticsearch:
+            client:
+              WIRE: trace
+
+
+# 서킷 브레이커
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        slidingWindowType: COUNT_BASED
+        slidingWindowSize: 10
+        failureRateThreshold: 50  # 실패율 임계값을 백분율로 구성, 이 값을 넘어가면 회로 차단
+        permittedNumberOfCallsInHalfOpenState: 5
+        registerHealthIndicator: true
+
+

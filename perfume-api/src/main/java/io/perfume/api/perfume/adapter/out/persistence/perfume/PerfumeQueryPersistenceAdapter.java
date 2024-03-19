@@ -5,7 +5,6 @@ import static io.perfume.api.file.adapter.out.persistence.file.QFileJpaEntity.fi
 import static io.perfume.api.note.adapter.out.persistence.note.QNoteJpaEntity.noteJpaEntity;
 import static io.perfume.api.perfume.adapter.out.persistence.perfume.QPerfumeJpaEntity.perfumeJpaEntity;
 import static io.perfume.api.perfume.adapter.out.persistence.perfumeFavorite.QPerfumeFavoriteJpaEntity.perfumeFavoriteJpaEntity;
-import static io.perfume.api.perfume.adapter.out.persistence.perfumeImage.QPerfumeImageEntity.perfumeImageEntity;
 import static io.perfume.api.perfume.adapter.out.persistence.perfumeNote.QPerfumeNoteEntity.perfumeNoteEntity;
 
 import com.querydsl.core.Tuple;
@@ -25,6 +24,7 @@ import io.perfume.api.perfume.domain.Perfume;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -57,16 +57,7 @@ public class PerfumeQueryPersistenceAdapter implements PerfumeQueryRepository {
       return Optional.empty();
     }
 
-    List<Long> perfumeImageIds = findPerfumeImagesById(id);
-    return Optional.of(perfumeMapper.toPerfumeWithImages(entity, perfumeImageIds));
-  }
-
-  private List<Long> findPerfumeImagesById(Long id) {
-    return jpaQueryFactory
-        .select(perfumeImageEntity.perfumeImageId.imageId)
-        .from(perfumeImageEntity)
-        .where(perfumeImageEntity.perfumeImageId.perfumeId.eq(id))
-        .fetch();
+    return Optional.of(perfumeMapper.toPerfume(entity));
   }
 
   @Override
@@ -256,6 +247,17 @@ public class PerfumeQueryPersistenceAdapter implements PerfumeQueryRepository {
             brandEntity.name.append(" ").append(perfumeJpaEntity.name).contains(query))
         .limit(10L)
         .fetch();
+  }
+
+  @Override
+  public List<Perfume> searchByContainsName(String name) {
+    List<PerfumeJpaEntity> fetch =
+        jpaQueryFactory
+            .selectFrom(perfumeJpaEntity)
+            .where(perfumeJpaEntity.name.contains(name).and(perfumeJpaEntity.deletedAt.isNull()))
+            .fetch();
+
+    return fetch.stream().map(perfumeMapper::toPerfume).collect(Collectors.toList());
   }
 
   private BooleanExpression ltPerfumeId(Long perfumeId) {

@@ -28,4 +28,6 @@ public interface PerfumeQueryRepository {
   CustomSlice<SimplePerfumeResult> findPerfumesByFavorite(Long lastPerfumeId, int pageSize);
 
   List<PerfumeNameResult> searchPerfumeByQuery(String query);
+
+  List<Perfume> searchByContainsName(String name);
 }

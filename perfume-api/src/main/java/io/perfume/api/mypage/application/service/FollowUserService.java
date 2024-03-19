@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class FollowUserService implements FollowUserUseCase {
@@ -33,6 +34,7 @@ public class FollowUserService implements FollowUserUseCase {
   }
 
   @Override
+  @Transactional
   public void followAndUnFollow(Long followerId, Long followingId) {
     User follwingUser =
         userQueryRepository

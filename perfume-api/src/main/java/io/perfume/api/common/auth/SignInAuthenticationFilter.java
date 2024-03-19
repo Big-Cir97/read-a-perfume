@@ -12,6 +12,8 @@ import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
+
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -26,6 +28,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StreamUtils;
 
 @Component
+@Slf4j
 public class SignInAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
   private final MakeNewTokenUseCase makeNewTokenUseCase;
@@ -74,6 +77,7 @@ public class SignInAuthenticationFilter extends UsernamePasswordAuthenticationFi
 
     String refreshToken =
         makeNewTokenUseCase.createRefreshToken(principal.getUser().getId(), LocalDateTime.now());
+    log.info("authuentication filter refrest = {}", request);
     response.addCookie(createCookie("X-Refresh-Token", refreshToken));
 
     SecurityContextHolder.getContext().setAuthentication(authResult);

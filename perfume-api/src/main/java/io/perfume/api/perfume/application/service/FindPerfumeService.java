@@ -5,7 +5,6 @@ import io.perfume.api.brand.application.port.in.dto.BrandForPerfumeResult;
 import io.perfume.api.common.page.CustomPage;
 import io.perfume.api.common.page.CustomSlice;
 import io.perfume.api.file.application.port.in.FindFileUseCase;
-import io.perfume.api.file.application.port.in.dto.FileResult;
 import io.perfume.api.file.domain.File;
 import io.perfume.api.note.application.port.in.FindCategoryUseCase;
 import io.perfume.api.note.application.port.in.dto.CategoryResult;
@@ -19,8 +18,8 @@ import io.perfume.api.perfume.domain.NotePyramid;
 import io.perfume.api.perfume.domain.Perfume;
 import io.perfume.api.review.application.in.dto.ReviewStatisticResult;
 import io.perfume.api.review.application.in.review.ReviewStatisticUseCase;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -44,20 +43,13 @@ public class FindPerfumeService implements FindPerfumeUseCase {
     CategoryResult categoryResult = findCategoryUseCase.findCategoryById(perfume.getCategoryId());
     BrandForPerfumeResult brandResult = findBrandUseCase.findBrandForPerfume(perfume.getBrandId());
     NotePyramid notePyramid = perfumeQueryRepository.getNotePyramidByPerfume(perfume.getId());
+    Optional<File> fileById = findFileUseCase.findFileById(perfume.getThumbnailId());
+    String thumbnail = "";
+    if (fileById.isPresent()) {
+      thumbnail = fileById.get().getUrl();
+    }
 
-    List<String> result = new ArrayList<>();
-    String thumbnail =
-        findFileUseCase
-            .findFileById(perfume.getThumbnailId())
-            .orElse(File.createFile("", null, null))
-            .getUrl();
-    result.add(thumbnail);
-    List<String> images =
-        findFileUseCase.findFilesByIds(perfume.getImageIds()).stream()
-            .map(FileResult::url)
-            .toList();
-    result.addAll(images);
-    return PerfumeResult.from(perfume, categoryResult, brandResult, result, notePyramid);
+    return PerfumeResult.from(perfume, categoryResult, brandResult, thumbnail, notePyramid);
   }
 
   @Override

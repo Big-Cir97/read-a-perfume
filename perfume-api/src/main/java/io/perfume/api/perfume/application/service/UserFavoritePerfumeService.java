@@ -7,6 +7,7 @@ import io.perfume.api.perfume.domain.PerfumeFavorite;
 import java.time.LocalDateTime;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
@@ -23,7 +24,7 @@ public class UserFavoritePerfumeService implements UserFavoritePerfumeUseCase {
   }
 
   @Override
-  @Transactional
+  @Transactional(isolation = Isolation.READ_UNCOMMITTED)
   public void addAndDeleteFavoritePerfume(Long authorId, Long perfumeId) {
     Optional<PerfumeFavorite> foundPerfumeFollow =
         perfumeFavoriteQueryRepository.findByUserIdAndPerfumeId(authorId, perfumeId);

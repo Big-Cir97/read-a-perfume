@@ -7,10 +7,11 @@ import io.perfume.api.auth.domain.RefreshToken;
 import java.util.Optional;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
-@Profile("prod")
+// @Profile("local")
 @Repository
 @RequiredArgsConstructor
 public class RedisAdapter implements RememberMeQueryRepository, RememberMeRepository {

@@ -59,4 +59,18 @@ public class PerfumeFavoriteQueryPersistenceAdapter implements PerfumeFavoriteQu
         .map(perfumeFavoriteMapper::toDomain)
         .collect(Collectors.toList());
   }
+
+  @Override
+  public Long favoritCountByPerfume(long perfumeId) {
+    return jpaQueryFactory
+        .select(perfumeFavoriteJpaEntity.count())
+        .from(perfumeFavoriteJpaEntity)
+        .where(
+            perfumeFavoriteJpaEntity
+                .id
+                .perfumeId
+                .eq(perfumeId)
+                .and(perfumeFavoriteJpaEntity.deletedAt.isNull()))
+        .fetchOne();
+  }
 }

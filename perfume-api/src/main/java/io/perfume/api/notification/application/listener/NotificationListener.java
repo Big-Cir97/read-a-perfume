@@ -5,6 +5,8 @@ import io.perfume.api.review.application.facade.dto.ReviewCommentEvent;
 import io.perfume.api.review.application.facade.dto.ReviewLikeEvent;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.event.TransactionalEventListener;
 
 @Component
@@ -16,8 +18,13 @@ public class NotificationListener {
     this.notificationFacadeService = notificationFacadeService;
   }
 
-  @TransactionalEventListener
-  @Async
+  // @EventListener
+  // @Transactional(propagation = Propagation.REQUIRES_NEW)
+  // @TransactionalEventListener(phase = TransactionPhase.BEFORE_COMMIT)
+  //  @TransactionalEventListener()
+  //  @Async
+  @Transactional(propagation = Propagation.REQUIRES_NEW)
+  @TransactionalEventListener()
   public void reviewCommentNotificationHandler(ReviewCommentEvent event) {
     notificationFacadeService.reviewCommentNotifyOnEvent(event);
   }

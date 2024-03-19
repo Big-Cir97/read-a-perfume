@@ -9,4 +9,6 @@ public interface PerfumeFavoriteQueryRepository {
   Optional<PerfumeFavorite> findByUserIdAndPerfumeId(Long userId, Long perfumeId);
 
   List<PerfumeFavorite> findFavoritePerfumesByUserId(Long userId);
+
+  Long favoritCountByPerfume(long perfumeId);
 }

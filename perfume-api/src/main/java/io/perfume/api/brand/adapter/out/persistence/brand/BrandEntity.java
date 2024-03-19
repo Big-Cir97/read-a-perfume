@@ -1,16 +1,19 @@
 package io.perfume.api.brand.adapter.out.persistence.brand;
 
 import io.perfume.api.base.BaseTimeEntity;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import lombok.*;
 
-@Entity(name = "brand")
+@Entity()
+@Table(
+        name = "brand",
+        indexes = {
+                @Index(name = "idx_brand_name", columnList = "name")
+        }
+)
 @NoArgsConstructor(access = AccessLevel.PROTECTED, force = true)
 @EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
 @ToString(onlyExplicitlyIncluded = true)
@@ -23,11 +26,11 @@ public class BrandEntity extends BaseTimeEntity {
   @ToString.Include
   private Long id;
 
-  @NotBlank private String name;
+  private String name;
 
-  @NotBlank private String story;
+  private String story;
 
-  @NotBlank private String brandUrl;
+  private String brandUrl;
 
   private Long thumbnailId;
 

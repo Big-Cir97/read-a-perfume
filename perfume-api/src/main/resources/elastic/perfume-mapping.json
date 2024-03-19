@@ -1,0 +1,27 @@
+{
+  "properties" : {
+    "perfume_id" : {
+      "type" : "long"
+    },
+    "perfume_name" : {
+      "type" : "text",
+      "analyzer" : "korean"
+    },
+    "perfume_story" : {
+      "type" : "text",
+      "analyzer" : "korean"
+    },
+    "perfume_shop_url" : {
+      "type" : "keyword"
+    },
+    "perfume_brand_id" : {
+      "type" : "long"
+    },
+    "perfume_category_id" : {
+      "type" : "long"
+    },
+    "perfume_thumbnail_id" : {
+      "type" : "long"
+    }
+  }
+}
