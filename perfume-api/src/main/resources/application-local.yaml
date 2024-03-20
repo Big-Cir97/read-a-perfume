@@ -7,10 +7,17 @@ spring:
     redis:
       cache-null-values: true
   datasource:
-    driver-class-name: 'com.mysql.cj.jdbc.Driver'
-    url: 'jdbc:mysql://localhost:3307/test'
-    username: ''
-    password: ''
+    master:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      jdbc-url: jdbc:mysql://${MASTER_DB_HOST}:${MASTER_DB_PORT}/${MASTER_DB_NAME}
+      username: ${MASTER_DB_USERNAME}
+      password: ${MASTER_DB_PASSWORD}
+    slave:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      jdbc-url: jdbc:mysql://${SLAVE_DB_HOST}:${SLAVE_DB_PORT}/${SLAVE_DB_NAME}
+      username: ${SLAVE_DB_USERNAME}
+      password: ${SLAVE_DB_PASSWORD}
+
     hikari:
       maximum-pool-size: 24
       max-lifetime: 1800000
@@ -35,13 +42,13 @@ spring:
   data:
     redis:
       primary:
-        host: localhost
-        port: 6380
-        password: 1234
+        host: ${P_REDIS_HOST}
+        port: ${P_REDIS_PORT}
+        password: ${P_REDIS_AUTH_PASSWORD}
       cache:
-        host: localhost
-        port: 6379
-        password: 1234
+        host: ${C_REDIS_HOST}
+        port: ${C_REDIS_PORT}
+        password: ${C_REDIS_AUTH_PASSWORD}
 
     elasticsearch:
       repositories:
