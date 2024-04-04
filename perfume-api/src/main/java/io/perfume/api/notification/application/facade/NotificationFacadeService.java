@@ -2,8 +2,8 @@ package io.perfume.api.notification.application.facade;
 
 import io.perfume.api.notification.application.port.in.dto.CreateNotificationCommand;
 import io.perfume.api.notification.application.service.CreateNotificationService;
-import io.perfume.api.notification.application.service.SendNotificationService;
-import io.perfume.api.notification.application.service.SubscribeService;
+import io.perfume.api.notification.application.service.v1.SendNotificationService;
+import io.perfume.api.notification.application.service.v1.SubscribeService;
 import io.perfume.api.notification.domain.NotificationType;
 import io.perfume.api.review.application.facade.dto.ReviewCommentEvent;
 import io.perfume.api.review.application.facade.dto.ReviewLikeEvent;

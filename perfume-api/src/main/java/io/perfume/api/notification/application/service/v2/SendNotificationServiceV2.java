@@ -1,31 +1,29 @@
-package io.perfume.api.notification.application.service;
+package io.perfume.api.notification.application.service.v2;
 
+import io.perfume.api.common.config.redis.RedisPublisher;
 import io.perfume.api.notification.application.port.in.SendNotificationUseCase;
 import io.perfume.api.notification.application.port.in.dto.NotificationResult;
-import io.perfume.api.notification.application.port.in.dto.SendNotificationResult;
 import io.perfume.api.notification.application.port.out.emitter.EmitterRepository;
+import org.springframework.data.redis.listener.ChannelTopic;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 @Service
-public class SendNotificationService implements SendNotificationUseCase {
+public class SendNotificationServiceV2 implements SendNotificationUseCase {
 
   private final EmitterRepository emitterRepository;
+  private final RedisPublisher redisPublisher;
 
-  public SendNotificationService(EmitterRepository emitterRepository) {
+  public SendNotificationServiceV2(EmitterRepository emitterRepository, RedisPublisher redisPublisher) {
     this.emitterRepository = emitterRepository;
+    this.redisPublisher = redisPublisher;
   }
 
   @Override
   public void send(NotificationResult notificationResult) {
-    emitterRepository
-        .findAllEmitterStartWithByUserId(String.valueOf(notificationResult.receiveUserId()))
-        .forEach(
-            (key, emitter) -> {
-              emitterRepository.saveEventCache(key, notificationResult);
-              sendNotification(emitter, key, SendNotificationResult.from(notificationResult));
-            });
+    ChannelTopic topic = new ChannelTopic(notificationResult.receiveUserId().toString());
+    redisPublisher.publish(topic, notificationResult);
   }
 
   @Override
