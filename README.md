@@ -24,6 +24,10 @@ Read A Perfume은 향수에 대한 리뷰를 남길 수 있는 플랫폼으로, 
 
 <br>
 
+## 💀 ISSUE
+[이슈 링크](https://github.com/Big-Cir97/read-a-perfume/blob/develop/Issues.md)
+<br>
+
 ## ⚒️ 사용 툴
 - Java 17
 - Spring Boot
@@ -75,6 +79,3 @@ docker-compose up -d
 - 반드시 `__` 두개의 언더바로 구분해야 합니다.
 - 버전이 중복되지 않도록 merge 시 주의해주세요. 
 
-## 💀 ISSUE
-[이슈 링크](https://github.com/Big-Cir97/read-a-perfume/blob/develop/Issues.md)
-<br>

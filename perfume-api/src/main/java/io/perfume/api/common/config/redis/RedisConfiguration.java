@@ -1,5 +1,6 @@
 package io.perfume.api.common.config.redis;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -80,11 +81,11 @@ public class RedisConfiguration {
   }
 
   @Bean
-  public RedisTemplate<String, Object> redisTemplate() {
-    RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
+  public RedisTemplate<?, ?> redisTemplate() {
+    RedisTemplate<?, ?> redisTemplate = new RedisTemplate<>();
     redisTemplate.setConnectionFactory(redisConnectionFactory());
     redisTemplate.setKeySerializer(new StringRedisSerializer());
-    redisTemplate.setValueSerializer(new GenericJackson2JsonRedisSerializer());
+    redisTemplate.setValueSerializer(new GenericJackson2JsonRedisSerializer(new ObjectMapper()));
     redisTemplate.afterPropertiesSet();
     return redisTemplate;
   }
